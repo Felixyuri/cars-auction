@@ -33,5 +33,4 @@ export class AuthController {
             throw new HTTPExceptionHandler(error);
         }
     }
-
 }

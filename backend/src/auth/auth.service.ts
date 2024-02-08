@@ -24,7 +24,13 @@ export class AuthService {
                 { email: user_valid.email, sub: user_valid.id},
                 { secret: process.env.SECRET_KEY}
                 );
-            return { access_token: token };
+            return {
+                access_token: token,
+                user: {
+                    name: user_valid.name,
+                    email: user_valid.email
+                }
+            };
         } catch (error) {
             throw ErrorToThrowHandler(error);
         }
@@ -62,6 +68,6 @@ export class AuthService {
     }
 
     async getUser(email: string) {
-        return this.prisma.user.findUnique({ where: { email }});
+        return await this.prisma.user.findUnique({ where: { email }});
     };
 }
