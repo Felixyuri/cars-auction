@@ -14,7 +14,7 @@ export class AuctionService {
     async createAuction(auctionDto: AuctionDto) {
         try {
             const { auctionEndDate, auctionStartDate, startingBid } = auctionDto;
-            if (auctionEndDate < new Date() && auctionStartDate < new Date() && auctionEndDate < auctionStartDate) {
+            if (auctionEndDate < new Date() || auctionStartDate < new Date() || auctionEndDate < auctionStartDate) {
                 throw ErrorToThrowHandler({message: "Auction date is invalid", status: HttpStatus.BAD_REQUEST});
             }
             if(startingBid < 100) {

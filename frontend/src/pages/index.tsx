@@ -1,10 +1,11 @@
 import Head from 'next/head'
-import { LockClosedIcon,  } from '@heroicons/react/solid'
+import { LockClosedIcon, UserAddIcon } from '@heroicons/react/solid'
 import { useForm } from 'react-hook-form'
 import { useContext, useEffect } from 'react';
 import { AuthContext } from '../../contexts/AuthContext';
 import { GetServerSideProps } from 'next';
 import { parseCookies } from 'nookies';
+import Router from 'next/router';
 
 export default function Home() {
   const { register, handleSubmit } = useForm();
@@ -64,7 +65,7 @@ export default function Home() {
             </div>
           </div>
 
-          <div>
+          <div className='flex gap-2'>
             <button
               type="submit"
               className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
@@ -73,6 +74,17 @@ export default function Home() {
                 <LockClosedIcon className="h-5 w-5 text-indigo-500 group-hover:text-indigo-400" aria-hidden="true" />
               </span>
               Entrar
+            </button>
+
+            <button
+              type="button"
+            onClick={() => {Router.push('/create')}}
+              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            >
+              <span className="absolute left-0 inset-y-0 flex items-center pl-3">
+                <UserAddIcon className="h-5 w-5 text-indigo-500 group-hover:text-indigo-400" aria-hidden="true" />
+              </span>
+              cadastrar
             </button>
           </div>
         </form>

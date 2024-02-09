@@ -3,6 +3,7 @@ import { createContext } from "react"
 import { setCookie } from "nookies";
 import Router from "next/router";
 import { api } from "../services/api";
+import { toast } from "react-toastify";
 
 type AuthContextType = {
     signIn: (data: SignInData) => Promise<void>
@@ -32,8 +33,8 @@ export function AuthProvider({ children }: any) {
 
             Router.push('/dashboard');
         })
-        .catch((error) => {
-            console.log(error)
+        .catch(({response}) => {
+            toast.error(response.data.message, { autoClose: 1000 });
         });
     }
 

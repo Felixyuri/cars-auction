@@ -2,6 +2,7 @@ import { Button, DatePicker, Form, Input, Modal } from "antd";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { api } from "../services/api";
+import { toast } from "react-toastify";
 
 const CreateAuction = ({showModal, setShowModal, setAllAuctions}: any) => {
     const { register, handleSubmit } = useForm();
@@ -24,7 +25,9 @@ const CreateAuction = ({showModal, setShowModal, setAllAuctions}: any) => {
                 setAllAuctions({...data, creator: { name: userInfos?.name }});
                 setShowModal(false);
             })
-            .catch((error) => console.log(error));
+            .catch(({response}) => {
+                toast.error(response.data.message, { autoClose: 1000 });
+            });
         }
     }
 
@@ -37,8 +40,8 @@ const CreateAuction = ({showModal, setShowModal, setAllAuctions}: any) => {
         .then(({data}) => {
             userInfos = data;
         })
-        .catch((error) => {
-            console.log(error);
+        .catch(({response}) => {
+            toast.error(response.data.message, { autoClose: 1000 });
         });
 
         return userInfos;

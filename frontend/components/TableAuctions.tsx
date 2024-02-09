@@ -1,6 +1,7 @@
 import { Button, Empty, Form, Input, Modal, Table } from "antd"
 import { useState } from "react";
 import { api } from "../services/api";
+import { toast } from "react-toastify";
 
 interface AuctionInfos {
     auctionEndDate: string;
@@ -23,8 +24,18 @@ const TableAuctions = ({ auctions }: any) => {
         { title: 'Marca', dataIndex: 'brand', key: 'brand' },
         { title: 'Modelo', dataIndex: 'model', key: 'model' },
         { title: 'Ano', dataIndex: 'year', key: 'year' },
-        { title: 'Data Inicial', dataIndex: 'auctionStartDate', key: 'auctionStartDate' },
-        { title: 'Data Final', dataIndex: 'auctionEndDate', key: 'auctionEndDate' },
+        {
+            title: 'Data Inicial', dataIndex: 'auctionStartDate', key: 'auctionStartDate',
+            render: (isoDate: string) => {
+                return <>{new Date(isoDate).toISOString().split('T')[0].replace(/-/g, '/')}</>
+            }
+        },
+        {
+            title: 'Data Final', dataIndex: 'auctionEndDate', key: 'auctionEndDate',
+            render: (isoDate: string) => {
+                return <>{new Date(isoDate).toISOString().split('T')[0].replace(/-/g, '/')}</>
+            }
+        },
         {
             title: 'Criador',
             render: (infos: any) => {
@@ -60,8 +71,8 @@ const TableAuctions = ({ auctions }: any) => {
             setShowBidModal(true);
             setInfosAuctionBidModal(data);
         })
-        .catch((error) => {
-            console.log(error);
+        .catch(({response}) => {
+            toast.error(response.data.message, { autoClose: 1000 });
         });
     }
 
@@ -78,8 +89,8 @@ const TableAuctions = ({ auctions }: any) => {
         .then(({data}) => {
             getAllBidsForAuction(auctionToBid);
         })
-        .catch((error) => {
-            console.log(error);
+        .catch(({response}) => {
+            toast.error(response.data.message, { autoClose: 1000 });
         });
     }
 
@@ -92,8 +103,8 @@ const TableAuctions = ({ auctions }: any) => {
         .then(({data}) => {
             userInfos = data;
         })
-        .catch((error) => {
-            console.log(error);
+        .catch(({response}) => {
+            toast.error(response.data.message, { autoClose: 1000 });
         });
 
         return userInfos;

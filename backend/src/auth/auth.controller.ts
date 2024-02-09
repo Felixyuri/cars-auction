@@ -27,9 +27,11 @@ export class AuthController {
         @Res() res: Response
     ) {
         try {
+            console.log('entrou');
             const loginUser = await this.authService.signIn(authDto);
             return res.send(loginUser);
         } catch (error) {
+            console.log(error);
             throw new HTTPExceptionHandler(error);
         }
     }

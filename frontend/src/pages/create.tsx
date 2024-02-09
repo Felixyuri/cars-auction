@@ -1,10 +1,11 @@
 import Head from 'next/head'
-import { LockClosedIcon,  } from '@heroicons/react/solid'
+import { LockClosedIcon, ArrowLeftIcon } from '@heroicons/react/solid'
 import { useForm } from 'react-hook-form'
 import { useContext, useState } from 'react';
 import { AuthContext } from '../../contexts/AuthContext';
 import { api } from '../../services/api';
 import Router from 'next/router';
+import { toast } from 'react-toastify';
 
 export default function Create() {
   const { register, handleSubmit } = useForm();
@@ -19,8 +20,8 @@ export default function Create() {
     .then(() => {
         Router.push('/');
     })
-    .catch((error) => {
-        console.log(error);
+    .catch(({response}) => {
+        toast.error(response.data.message, { autoClose: 1000 });
     });
   }
 
@@ -29,6 +30,14 @@ export default function Create() {
       <Head>
         <title>Leilão</title>
       </Head>
+
+      <button
+        type='button'
+        className='absolute top-20 left-32'
+        onClick={() => {Router.push('/')}}
+      >
+        <ArrowLeftIcon className='h-5 w-5 text-indigo-500 group-hover:text-indigo-400'/>
+      </button>
 
       <div className="max-w-sm w-full space-y-8">
         <div>
