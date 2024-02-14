@@ -64,10 +64,11 @@ export class AuctionService {
     async findAll() {
         try {
             const auction = await this.prisma.auction.findMany({
+                where: {
+                    auctionEndDate: { gte: new Date() }
+                },
                 include: {
-                    creator: {
-                        select: { name: true }
-                    }
+                    creator: { select: { name: true } }
                 }
             });
 
