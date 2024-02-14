@@ -19,6 +19,7 @@ const TableAuctions = ({ auctions }: any) => {
     const [infosAuctionBidModal, setInfosAuctionBidModal] = useState<AuctionInfos | any>();
     const [auctionToBid, setAuctionToBid] = useState<string>('');
     const [bidAmountUser, setBidAmountUser] = useState<number>(0);
+    const [isSubmittingBid, setSubmittingBid] = useState<boolean>(false);
     
     const columns = [
         { title: 'Marca', dataIndex: 'brand', key: 'brand' },
@@ -65,8 +66,8 @@ const TableAuctions = ({ auctions }: any) => {
         }
     ]
 
-    const getAllBidsForAuction = (id: string) => {
-        api.get(`auction/bids/auction/${id}`)
+    const getAllBidsForAuction = async (id: string) => {
+        await api.get(`auction/bids/auction/${id}`)
         .then(({data}) => {
             setShowBidModal(true);
             setInfosAuctionBidModal(data);
@@ -77,6 +78,7 @@ const TableAuctions = ({ auctions }: any) => {
     }
 
     const sendBidByUser = async () => {
+        setSubmittingBid(true);
         const user = await getUser();
 
         const bidInfos = {
@@ -85,13 +87,14 @@ const TableAuctions = ({ auctions }: any) => {
             auctionId: auctionToBid
         };
 
-        api.post(`/auction/bid`, bidInfos)
-        .then(({data}) => {
+        await api.post(`/auction/bid`, bidInfos)
+        .then(() => {
             getAllBidsForAuction(auctionToBid);
         })
         .catch(({response}) => {
             toast.error(response?.data?.message, { autoClose: 1000 });
         });
+        setSubmittingBid(false);
     }
 
     const getUser = async () => {
@@ -151,6 +154,7 @@ const TableAuctions = ({ auctions }: any) => {
                     <Button
                         className="mr-2 ml-2"
                         onClick={() => sendBidByUser()}
+                        disabled={isSubmittingBid}
                     >
                         Enviar oferta
                     </Button>

@@ -5,7 +5,7 @@ import { api } from "../services/api";
 import { toast } from "react-toastify";
 
 const CreateAuction = ({showModal, setShowModal, setAllAuctions}: any) => {
-    const { register, handleSubmit } = useForm();
+    const { register, handleSubmit, formState: {isSubmitting}} = useForm();
     const [auctionData, setAuctionData] = useState({
         brand: '',
         model: '',
@@ -120,9 +120,10 @@ const CreateAuction = ({showModal, setShowModal, setAllAuctions}: any) => {
                 <div className="col-span-12">
                     <button
                         type="submit"
+                        disabled={isSubmitting}
                         className="w-1/4 float-end bg-slate-500 text-white rounded"
                     >
-                        Enviar
+                        {isSubmitting ? 'Enviando...' : 'Enviar'}
                     </button>
                 </div>
             </form>
