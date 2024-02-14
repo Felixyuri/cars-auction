@@ -27,13 +27,13 @@ const TableAuctions = ({ auctions }: any) => {
         {
             title: 'Data Inicial', dataIndex: 'auctionStartDate', key: 'auctionStartDate',
             render: (isoDate: string) => {
-                return <>{new Date(isoDate).toISOString().split('T')[0].replace(/-/g, '/')}</>
+                return <>{new Date(isoDate).toLocaleDateString('pt-BR')}</>
             }
         },
         {
             title: 'Data Final', dataIndex: 'auctionEndDate', key: 'auctionEndDate',
             render: (isoDate: string) => {
-                return <>{new Date(isoDate).toISOString().split('T')[0].replace(/-/g, '/')}</>
+                return <>{new Date(isoDate).toLocaleDateString('pt-BR')}</>
             }
         },
         {
