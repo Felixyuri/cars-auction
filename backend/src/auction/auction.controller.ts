@@ -4,11 +4,18 @@ import { JwtAuthGuard } from 'src/auth/guard/jwt.guard';
 import { AuctionDto, BidDto } from './dto/auction.dto';
 import { Response } from 'express';
 import { HTTPExceptionHandler } from 'src/exception/httpExceptions';
+import { ApiBearerAuth, ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('auction')
 @Controller('auction')
 export class AuctionController {
     constructor(private readonly auctionService: AuctionService) {}
 
+    @ApiBearerAuth()
+    @ApiOperation({ summary: 'Create new auction' })
+    @ApiResponse({ status: 201, description: 'The creation of the auction was completed successfully.' })
+    @ApiResponse({ status: 403, description: 'Access to the resource forbidden.' })
+    @ApiBody({ type: AuctionDto })
     @Post('create')
     @UseGuards(JwtAuthGuard)
     async create(
@@ -23,6 +30,11 @@ export class AuctionController {
         }
     }
 
+    @ApiOperation({ summary: 'Update auction' })
+    @ApiResponse({ status: 200, description: 'The auction was successfully modified.' })
+    @ApiResponse({ status: 403, description: 'Access to the resource forbidden.' })
+    @ApiBody({ type: AuctionDto })
+    @ApiBearerAuth()
     @Patch(':id')
     @UseGuards(JwtAuthGuard)
     async update(
@@ -38,6 +50,10 @@ export class AuctionController {
         }
     }
 
+    @ApiOperation({ summary: 'Get all auctions' })
+    @ApiResponse({ status: 200, description: 'The details of the auctions.' })
+    @ApiResponse({ status: 403, description: 'Access to the resource forbidden.' })
+    @ApiBearerAuth()
     @Get()
     @UseGuards(JwtAuthGuard)
     async findAll(
@@ -51,6 +67,10 @@ export class AuctionController {
         }
     }
 
+    @ApiOperation({ summary: 'Get one auction by id' })
+    @ApiResponse({ status: 200, description: 'The details of the auction.' })
+    @ApiResponse({ status: 403, description: 'Access to the resource forbidden.' })
+    @ApiBearerAuth()
     @Get(':id')
     @UseGuards(JwtAuthGuard)
     async findOne(
@@ -65,6 +85,10 @@ export class AuctionController {
         }
     }
 
+    @ApiOperation({ summary: 'Get one auction by user id' })
+    @ApiResponse({ status: 200, description: 'The details of the auction.' })
+    @ApiResponse({ status: 403, description: 'Access to the resource forbidden.' })
+    @ApiBearerAuth()
     @Get('/user/:id')
     @UseGuards(JwtAuthGuard)
     async findOneByUser(
@@ -79,6 +103,10 @@ export class AuctionController {
         }
     }
 
+    @ApiOperation({ summary: 'Delete one auction by id' })
+    @ApiResponse({ status: 200, description: 'The auction has been deleted.' })
+    @ApiResponse({ status: 403, description: 'Access to the resource forbidden.' })
+    @ApiBearerAuth()
     @Delete(':id')
     @UseGuards(JwtAuthGuard)
     async remove(
@@ -93,6 +121,11 @@ export class AuctionController {
         }
     }
 
+    @ApiOperation({ summary: 'Create new bid' })
+    @ApiResponse({ status: 200, description: 'The creation of the bid was completed successfully' })
+    @ApiResponse({ status: 403, description: 'Access to the resource forbidden.' })
+    @ApiBody({ type: BidDto })
+    @ApiBearerAuth()
     @Post('bid')
     @UseGuards(JwtAuthGuard)
     async createBid(
@@ -107,6 +140,11 @@ export class AuctionController {
         }
     }
 
+    @ApiOperation({ summary: 'Update bid by id' })
+    @ApiResponse({ status: 200, description: 'The bid was successfully modified.' })
+    @ApiResponse({ status: 403, description: 'Access to the resource forbidden.' })
+    @ApiBody({ type: BidDto })
+    @ApiBearerAuth()
     @Patch('bid/:id')
     @UseGuards(JwtAuthGuard)
     async updateBid(
@@ -122,6 +160,10 @@ export class AuctionController {
         }
     }
 
+    @ApiOperation({ summary: 'Get all bids with user' })
+    @ApiResponse({ status: 200, description: 'The details of the bids.' })
+    @ApiResponse({ status: 403, description: 'Access to the resource forbidden.' })
+    @ApiBearerAuth()
     @Get('bids/user/:id')
     @UseGuards(JwtAuthGuard)
     async findUserBids(
@@ -136,6 +178,10 @@ export class AuctionController {
         }
     }
 
+    @ApiOperation({ summary: 'Get bid by id' })
+    @ApiResponse({ status: 200, description: 'The details of the bid.' })
+    @ApiResponse({ status: 403, description: 'Access to the resource forbidden.' })
+    @ApiBearerAuth()
     @Get('bid/:id')
     @UseGuards(JwtAuthGuard)
     async findBid(
@@ -150,6 +196,10 @@ export class AuctionController {
         }
     }
 
+    @ApiOperation({ summary: 'Get all bids by auction id' })
+    @ApiResponse({ status: 200, description: 'The details of the bid by auction id.' })
+    @ApiResponse({ status: 403, description: 'Access to the resource forbidden.' })
+    @ApiBearerAuth()
     @Get('bids/auction/:id')
     @UseGuards(JwtAuthGuard)
     async findAllBidsAuction(
@@ -164,6 +214,10 @@ export class AuctionController {
         }
     }
 
+    @ApiOperation({ summary: 'Get the highest bid at the auction' })
+    @ApiResponse({ status: 200, description: 'The details of the highest bid by auction id.' })
+    @ApiResponse({ status: 403, description: 'Access to the resource forbidden.' })
+    @ApiBearerAuth()
     @Get('bid/highestAmount/:auctionId')
     @UseGuards(JwtAuthGuard)
     async findHighestAmount(
@@ -178,6 +232,10 @@ export class AuctionController {
         }
     }
 
+    @ApiOperation({ summary: 'Get user by email' })
+    @ApiResponse({ status: 200, description: 'The details of the user by email.' })
+    @ApiResponse({ status: 403, description: 'Access to the resource forbidden.' })
+    @ApiBearerAuth()
     @Get('finduser/:email')
     @UseGuards(JwtAuthGuard)
     async findUserByEmail(

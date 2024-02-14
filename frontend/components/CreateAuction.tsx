@@ -26,7 +26,7 @@ const CreateAuction = ({showModal, setShowModal, setAllAuctions}: any) => {
                 setShowModal(false);
             })
             .catch(({response}) => {
-                toast.error(response.data.message, { autoClose: 1000 });
+                toast.error(response?.data?.message, { autoClose: 1000 });
             });
         }
     }
@@ -41,7 +41,7 @@ const CreateAuction = ({showModal, setShowModal, setAllAuctions}: any) => {
             userInfos = data;
         })
         .catch(({response}) => {
-            toast.error(response.data.message, { autoClose: 1000 });
+            toast.error(response?.data?.message, { autoClose: 1000 });
         });
 
         return userInfos;

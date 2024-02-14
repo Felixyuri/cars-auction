@@ -21,7 +21,7 @@ export default function Create() {
         Router.push('/');
     })
     .catch(({response}) => {
-        toast.error(response.data.message, { autoClose: 1000 });
+        toast.error(response?.data?.message, { autoClose: 1000 });
     });
   }
 

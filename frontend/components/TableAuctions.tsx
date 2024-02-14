@@ -72,7 +72,7 @@ const TableAuctions = ({ auctions }: any) => {
             setInfosAuctionBidModal(data);
         })
         .catch(({response}) => {
-            toast.error(response.data.message, { autoClose: 1000 });
+            toast.error(response?.data?.message, { autoClose: 1000 });
         });
     }
 
@@ -90,7 +90,7 @@ const TableAuctions = ({ auctions }: any) => {
             getAllBidsForAuction(auctionToBid);
         })
         .catch(({response}) => {
-            toast.error(response.data.message, { autoClose: 1000 });
+            toast.error(response?.data?.message, { autoClose: 1000 });
         });
     }
 
@@ -104,7 +104,7 @@ const TableAuctions = ({ auctions }: any) => {
             userInfos = data;
         })
         .catch(({response}) => {
-            toast.error(response.data.message, { autoClose: 1000 });
+            toast.error(response?.data?.message, { autoClose: 1000 });
         });
 
         return userInfos;

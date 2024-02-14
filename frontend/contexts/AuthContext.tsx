@@ -34,7 +34,7 @@ export function AuthProvider({ children }: any) {
             Router.push('/dashboard');
         })
         .catch(({response}) => {
-            toast.error(response.data.message, { autoClose: 1000 });
+            toast.error(response?.data?.message, { autoClose: 1000 });
         });
     }
 
