@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 
 const CreateAuction = ({showModal, setShowModal, setAllAuctions}: any) => {
     const { register, handleSubmit, formState: {isSubmitting}} = useForm();
-    const [auctionData, setAuctionData] = useState({
+    const [auctionData, setAuctionData] = useState<AuctionInfos>({
         brand: '',
         model: '',
         startingBid: 0,

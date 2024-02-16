@@ -3,20 +3,9 @@ import { useState } from "react";
 import { api } from "../services/api";
 import { toast } from "react-toastify";
 
-interface AuctionInfos {
-    auctionEndDate: string;
-    auctionStartDate: string;
-    brand: string;
-    creatorId: string;
-    id: string;
-    model: string;
-    startingBid: number;
-    year: number;
-}
-
 const TableAuctions = ({ auctions }: any) => {
     const [showBidModal, setShowBidModal] = useState<boolean>(false);
-    const [infosAuctionBidModal, setInfosAuctionBidModal] = useState<AuctionInfos | any>();
+    const [infosAuctionBidModal, setInfosAuctionBidModal] = useState<AuctionInfos[]>();
     const [auctionToBid, setAuctionToBid] = useState<string>('');
     const [bidAmountUser, setBidAmountUser] = useState<number>(0);
     const [isSubmittingBid, setSubmittingBid] = useState<boolean>(false);
