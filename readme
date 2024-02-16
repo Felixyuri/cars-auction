@@ -1,0 +1,9 @@
+*Backend:
+- Alterar .env DATABASE_URL="endereço mongodb";
+
+*Frontend:
+- Alterar .env APP_API_HOST="endereço backend(padrão='http://localhost:3000')"
+
+*Mobile:
+- Utilizado expo-go conectado a partir do qr-code gerado no terminal;
+- Arquivo src/api/index.ts precisa ser alterado o baseURL do axios para seu ip ou localhost exemplo: "http://192.168.100.150:3000" 
